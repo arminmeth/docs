@@ -2,12 +2,10 @@
 title: "Flow of Funds"
 ---
 
-<Info>
-  Roles
+## Roles
 
-  - Developer - The company or entity using Superbank.
-  - User - The end-user of a Developer.
-</Info>
+- Developer - The company or entity using Superbank.
+- User - The end-user of a Developer.
 
 ## On-Ramping
 
@@ -51,7 +49,7 @@ sequenceDiagram
 2. Superbank provides Instant Settlement Capital to Developer in USDC/T.
    1. `source`: Superbank’s pre-funded wallet
    2. `destination`: Developer’s wallet
-2. Developer forwards Instant Settlement Capital to User. = T0
+1. Developer forwards Instant Settlement Capital to User. = T0
    1. `destination`: User’s wallet
 1. Fiat Transfer from User to Developer is completed after T + X (initiated in Step 1). = T0 + X
    1. `source`: User’s bank account
@@ -83,7 +81,7 @@ sequenceDiagram
 2. Superbank provides Instant Settlement Capital to Developer in USDC/T.
    1. `source`: Superbank’s pre-funded wallet
    2. `destination`: Developer’s wallet
-2. Developer forwards Instant Settlement Capital to User. **[T0]** **[INSTANT SETTLEMENT]**
+1. Developer forwards Instant Settlement Capital to User. **[T0]** **[INSTANT SETTLEMENT]**
    1. `source`: Developer’s wallet
    2. `destination`: User’s wallet
 
@@ -128,6 +126,6 @@ sequenceDiagram
 2. Superbank provides Instant Settlement Capital to Developer in USD.
    1. `source`: Superbank’s pre-funded bank account
    2. `destination`: Developer’s bank account
-2. Developer forwards Instant Settlement Capital to User. **[T0]** **[INSTANT SETTLEMENT]**
+1. Developer forwards Instant Settlement Capital to User. **[T0]** **[INSTANT SETTLEMENT]**
    1. `source`: Developer’s bank account
    2. `destination`: User’s bank account
