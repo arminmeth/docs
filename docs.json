@@ -48,6 +48,11 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Get Started",
+        "icon": "circle-arrow-right",
+        "href": "https://form.typeform.com/to/wk3PDITh"
       }
     ],
     "global": {}
