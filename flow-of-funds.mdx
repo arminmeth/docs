@@ -4,23 +4,23 @@ description: "Description of your new file."
 ---
 
 <Info>
-  **Roles**
+  Roles
 
-  - **Developer** - The company or entity using Superbank.
-  - **User** - The end-user of a Developer.
+  - Developer - The company or entity using Superbank.
+  - User - The end-user of a Developer.
 </Info>
 
 ## On-Ramping
 
 <Tip>
-  **Why is there a difference between legacy and instant rails when on-ramping?**
+  Why is there a difference between legacy and instant rails when on-ramping?
 
   On-ramping is affected by two liquidity gaps:
 
   - Real-time transfers: Instant rails like RTP require pre-funding;
   - Real-time settlement: Real-time on-chain settlement requires access to USDC reserves.
 
-  Superbank provides access to **both pre-funded instant rails and USDC liquidity reserves**:
+  Superbank provides access to both pre-funded instant rails and USDC liquidity reserves:
 
   - If User cannot use instant rails, Superbank enables real-time settlement of legacy rails.
   - If User can use RTP, Superbank provides the necessary pre-funding for instant transfers, as well as USDC liquidity for real-time on-chain settlement.
@@ -91,14 +91,14 @@ sequenceDiagram
 ## Off-Ramping
 
 <Tip>
-  **Why is there no difference between legacy and real-time rails when off-ramping?**
+  Why is there no difference between legacy and real-time rails when off-ramping?
 
   Off-ramping is affected by two liquidity gaps:
 
   - Real-time settlement: Instant off-chain settlement requires access to USD reserves.
   - Real-time transfers: Instant rails like RTP require pre-funding;
 
-  Superbank provides access to **both pre-funded instant rails and USD liquidity reserves, eliminating the need for legacy rails.**
+  Superbank provides access to both pre-funded instant rails and USD liquidity reserves, eliminating the need for legacy rails.
 
   - If Developer cannot use instant rails, Superbank provides both RTP and FedNow.
   - If Developer can use RTP, Superbank provides the necessary pre-funding for instant transfers, as well as USD liquidity for instant off-chain settlement.
