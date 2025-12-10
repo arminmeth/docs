@@ -16,7 +16,8 @@
           {
             "group": "Developer Guide",
             "pages": [
-              "index"
+              "index",
+              "flow-of-funds"
             ]
           }
         ]
