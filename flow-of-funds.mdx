@@ -29,18 +29,16 @@ description: "Description of your new file."
 
 ### On-Ramping with Legacy Rails
 
-````mermaid
 ```mermaid
 sequenceDiagram
 	autonumber
 	actor U as User
 	participant C as Developer
 	participant S as Superbank
-	U-->>C: Incoming Fiat Transfer
+	U-->>C: Incoming Fiat Transfer<br>(ACH, FedWire)
 	C-->>S: Incoming Fiat Transfer Notification
-	S->>C:Instant Settlement Capital
-	C->>U: Instant Settlement
-	U->>C: Fiat Transfer
+	S->>C:Instant Settlement Capital<br>(USDC/T)
+	C->>U: Instant Settlement<br>(USDC/T)
+	U->>C: Fiat Transfer<br>(ACH, FedWire)
 	C->>S: Fiat Transfer + Fees
 ```
-````
