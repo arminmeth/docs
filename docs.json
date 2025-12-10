@@ -17,7 +17,8 @@
             "group": "Developer Guide",
             "pages": [
               "index",
-              "flow-of-funds"
+              "flow-of-funds",
+              "rails"
             ]
           }
         ]
