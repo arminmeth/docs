@@ -40,7 +40,7 @@ sequenceDiagram
 	C->>S: Fiat Transfer + Fees
 ```
 
-1. User initiates Fiat Transfer to Developer via legacy rails (ACH, FedWire). = T0
+1. User initiates Fiat Transfer to Developer via legacy rails (ACH, FedWire). <Badge icon="clock" color="blue">T0</Badge>
    1. `source`: User’s bank account
    2. `destination`: Developer’s bank account
 1. Developer forwards Incoming Fiat Transfer Notification to Superbank.
@@ -49,12 +49,12 @@ sequenceDiagram
 2. Superbank provides Instant Settlement Capital to Developer in USDC/T.
    1. `source`: Superbank’s pre-funded wallet
    2. `destination`: Developer’s wallet
-1. Developer forwards Instant Settlement Capital to User. = T0
+1. Developer forwards Instant Settlement Capital to User. <Badge icon="clock" color="blue">T0</Badge> <Badge icon="circle-check" color="green">INSTANT SETTLEMENT</Badge>
    1. `destination`: User’s wallet
-1. Fiat Transfer from User to Developer is completed after T + X (initiated in Step 1). = T0 + X
+1. Fiat Transfer from User to Developer is completed after T + X (initiated in Step 1). <Badge icon="clock" color="blue">T0 + X</Badge>
    1. `source`: User’s bank account
    2. `destination`: Developer’s bank account
-2. Developer forwards received Fiat Transfer funds + Fees to Superbank. = T0 + X
+2. Developer forwards received Fiat Transfer funds + Fees to Superbank. <Badge icon="clock" color="blue">T0 + X</Badge>
    1. `source`: Developer’s bank account
    2. `destination`: Superbank’s bank account
 
@@ -72,7 +72,7 @@ sequenceDiagram
 	C->>U: Instant Settlement<br>(USDC)
 ```
 
-1. User completes Fiat Transfer to Developer via instant rails (RTP, FedNow). **[T0]**
+1. User completes Fiat Transfer to Developer via instant rails (RTP, FedNow). <Badge icon="clock" color="blue">T0</Badge>
    1. `source`: User’s bank account
    2. `destination`: Developer’s bank account
 1. Developer forwards received Fiat Transfer funds + Fees to Superbank.
@@ -81,7 +81,7 @@ sequenceDiagram
 2. Superbank provides Instant Settlement Capital to Developer in USDC/T.
    1. `source`: Superbank’s pre-funded wallet
    2. `destination`: Developer’s wallet
-1. Developer forwards Instant Settlement Capital to User. **[T0]** **[INSTANT SETTLEMENT]**
+1. Developer forwards Instant Settlement Capital to User. <Badge icon="clock" color="blue">T0</Badge> <Badge icon="circle-check" color="green">INSTANT SETTLEMENT</Badge>
    1. `source`: Developer’s wallet
    2. `destination`: User’s wallet
 
@@ -117,7 +117,7 @@ sequenceDiagram
 	C->>U: Instant Settlement<br>(USD)
 ```
 
-1. User completes Crypto Transfer to Developer. **[T0]**
+1. User completes Crypto Transfer to Developer. <Badge icon="clock" color="blue">T0</Badge>
    1. `source`: User’s wallet
    2. `destination`: Developer’s wallet
 1. Developer forwards received Crypto Transfer funds + Fees to Superbank.
@@ -126,6 +126,6 @@ sequenceDiagram
 2. Superbank provides Instant Settlement Capital to Developer in USD.
    1. `source`: Superbank’s pre-funded bank account
    2. `destination`: Developer’s bank account
-1. Developer forwards Instant Settlement Capital to User. **[T0]** **[INSTANT SETTLEMENT]**
+1. Developer forwards Instant Settlement Capital to User. <Badge icon="clock" color="blue">T0</Badge> <Badge icon="circle-check" color="green">INSTANT SETTLEMENT</Badge>
    1. `source`: Developer’s bank account
    2. `destination`: User’s bank account
