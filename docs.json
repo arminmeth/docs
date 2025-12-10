@@ -21,7 +21,8 @@
               "/developer-guide/rails",
               "/developer-guide/chains",
               "/developer-guide/available-liquidity",
-              "/developer-guide/risks"
+              "/developer-guide/risks",
+              "/developer-guide/kyc-aml"
             ]
           }
         ]
