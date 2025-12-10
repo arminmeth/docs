@@ -64,10 +64,7 @@
     }
   },
   "contextual": {
-    "options": [
-      "copy",
-      "view"
-    ]
+    "options": []
   },
   "footer": {}
 }
