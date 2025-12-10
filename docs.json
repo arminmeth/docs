@@ -53,8 +53,8 @@
     "global": {}
   },
   "logo": {
-    "light": "/logo/logo.png",
-    "dark": "/logo/logo.png"
+    "light": "/logo/logo-black.svg",
+    "dark": "/logo/logo-white.svg"
   },
   "navbar": {
     "primary": {
