@@ -1,6 +1,5 @@
 ---
 title: "Rails"
-description: "Description of your new file."
 ---
 
 Superbank supports on-ramping using all USA domestic, and 12 international rails and off-ramping using all USA domestic, and 27 international rails.
@@ -28,3 +27,70 @@ Superbank supports on-ramping using all USA domestic, and 12 international rails
 <Info>
   Same Day ACH is a fallback rail used when End-User’s bank is not part of FedNow or RTP networks.
 </Info>
+
+## International Payments, Currencies & FX
+
+<Warning>
+  Pricing for real-time on/off-ramping with international rails is corridor and rail specific.
+</Warning>
+
+### On-Ramp
+
+<Check>
+  Superbank provides USDC/T liquidity and access to real-time on-ramping from 12 local currencies to USDC/T via both instant and legacy rails. Superbank does not provide on-chain liquidity other than USDC/T stablecoins.
+</Check>
+
+Superbank support the following fiat rails for on-ramping:
+
+| **Country**    | **Rail**     | **Currency** | **Settlement Time** |
+| :------------- | :----------- | :----------- | :------------------ |
+| Brazil         | Pix          | BRL          | Real-time           |
+| Colombia       | PSE          | COP          | Real-time           |
+| Colombia       | ACH          | COP          | T+1                 |
+| EU             | SEPA Instant | EUR          | Real-time           |
+| EU             | SEPA         | EUR          | T+1                 |
+| Mexico         | SPEI         | MXN          | Real-time           |
+| Nigeria        | NIBSS        | NGN          | Real-time           |
+| Philippines    | InstaPay     | PHP          | Real-time           |
+| Philippines    | PESONet      | PHP          | T+1                 |
+| UAE            | NPSS         | AED          | Real-time           |
+| United Kingdom | SEPA Instant | EUR          | Real-time           |
+| United Kingdom | SEPA         | EUR          | T+1                 |
+
+### Off-Ramp
+
+<Check>
+  Superbank provides USD liquidity and access to real-time off-ramping from USDC/T to 22 local currencies via instant rails. Superbank does not provide off-chain liquidity in non-USD currencies.
+</Check>
+
+Superbank support the following fiat rails for off-ramping:
+
+| **Country**    | **Rail**           | **Currency** | **Settlement Time** |
+| :------------- | :----------------- | :----------- | :------------------ |
+| Argentina      | Transferencias 3.0 | ARS          | Real-time           |
+| Brazil         | Pix                | BRL          | Real-time           |
+| Colombia       | PSE                | COP          | Real-time           |
+| Costa Rica     | SINPE              | CRC          | Real-time           |
+| Costa Rica     | SINPE              | USD          | Real-time           |
+| EU             | SEPA Instant       | EUR          | Real-time           |
+| Ghana          | GhIPSS             | GHS          | Real-time           |
+| Hong Kong      | FPS                | HKD          | Real-time           |
+| India          | IMPS               | INR          | Real-time           |
+| Indonesia      | BI-FAST            | IDR          | Real-time           |
+| Kenya          | PesaLink           | KES          | Real-time           |
+| Malaysia       | PayNet’s Duitnow   | MYR          | Real-time           |
+| Mexico         | SPEI               | MXN          | Real-time           |
+| Nigeria        | NIBSS              | NGN          | Real-time           |
+| Pakistan       | IBFT               | PKR          | Real-time           |
+| Philippines    | InstaPay           | PHP          | Real-time           |
+| Singapore      | FAST               | SGD          | Real-time           |
+| Singapore      | MEPS               | SGD          | Real-time           |
+| South Korea    | KFTC               | KRW          | Real-time           |
+| South Korea    | FirmBanking        | KRW          | Real-time           |
+| Thailand       | PromptPay          | THB          | Real-time           |
+| Turkey         | FAST               | TRY          | Real-time           |
+| Turkey         | EFT                | TRY          | Real-time           |
+| UAE            | NPSS               | AED          | Real-time           |
+| United Kingdom | Faster Payments    | GBP          | Real-time           |
+| United Kingdom | SEPA Instant       | EUR          | Real-time           |
+| Vietnam        | Napas              | VND          | Real-time           |
