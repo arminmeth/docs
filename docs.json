@@ -17,9 +17,9 @@
             "group": "Developer Guide",
             "pages": [
               "index",
-              "developer-guide/flow-of-funds",
-              "developer-guide/rails",
-              "developer-guide/chains"
+              "/developer-guide/flow-of-funds",
+              "/developer-guide/rails",
+              "/developer-guide/chains"
             ]
           }
         ]
