@@ -27,6 +27,14 @@
               "/developer-guide/pricing",
               "/developer-guide/comparison"
             ]
+          },
+          {
+            "group": "Underwriting Guide",
+            "pages": [
+              "/underwriting-guide/overview",
+              "/underwriting-guide/pre-qualification",
+              "/underwriting-guide/underwriting-process"
+            ]
           }
         ]
       },
