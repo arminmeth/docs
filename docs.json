@@ -32,7 +32,14 @@
       },
       {
         "tab": "API reference",
-        "groups": []
+        "groups": [
+          {
+            "group": "API Reference",
+            "pages": [
+              "/api-reference/overview"
+            ]
+          }
+        ]
       }
     ],
     "global": {}
