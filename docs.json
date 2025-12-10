@@ -15,6 +15,7 @@
         "groups": [
           {
             "group": "Developer Guide",
+            "icon": "people-group",
             "pages": [
               "/developer-guide/overview",
               "/developer-guide/flow-of-funds",
@@ -30,6 +31,7 @@
           },
           {
             "group": "Underwriting Guide",
+            "icon": "shield",
             "pages": [
               "/underwriting-guide/overview",
               "/underwriting-guide/pre-qualification",
