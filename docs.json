@@ -75,5 +75,8 @@
     "socials": {
       "website": "https://superbank.co"
     }
+  },
+  "fonts": {
+    "family": "Roboto"
   }
 }
