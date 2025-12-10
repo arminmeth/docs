@@ -1,0 +1,29 @@
+---
+title: "Available Liquidity"
+---
+
+## Average Daily Liquidity Requirement (ADLR)
+
+The Average Daily Liquidity Requirement (ADLR) represents the average amount of liquidity Superbank must have available each day to settle all transactions in real time. It includes:
+
+- Peak liquidity - the maximum funds needed on any day in the past 90 days, covering instant settlement and timing gaps.
+- Volatility buffer - extra liquidity to handle unusually high-volume days, weekends, holidays, or spikes.
+
+ADLR is calculated as the total required liquidity divided by 90 days, giving a daily average.
+
+$$
+
+\\text{ADLR} = \\frac{V\_{\\text{peak}} + B\_{\\text{volatility}}}{90 \\text{ days}} \\\\[2mm] \\text{ADLR} = \\text{Average Daily Liquidity Requirement} \\\\ V\_{\\text{peak}} = \\text{maximum instantaneous liquidity over 90 days} \\\\ B\_{\\text{volatility}} = \\text{buffer for spikes or unusually high volume} 
+
+$$
+
+## Auto-Scaling Liquidity Buffers
+
+Superbank continuously monitors Developer’s real-time and historical transaction behavior. Liquidity buffers auto-scale when:
+
+- 90-day rolling volume increases
+- Instant settlement dependency rises
+- Variability or concentration risk changes
+- Weekend/holiday demand patterns shift
+
+This dynamic sizing ensures liquidity allocation always reflects actual operating needs while controlling risk exposure.
