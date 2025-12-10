@@ -66,5 +66,9 @@
   "contextual": {
     "options": []
   },
-  "footer": {}
+  "footer": {
+    "socials": {
+      "website": "https://superbank.co"
+    }
+  }
 }
