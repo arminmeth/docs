@@ -1,0 +1,30 @@
+---
+title: "Rails"
+description: "Description of your new file."
+---
+
+Superbank supports on-ramping using all USA domestic, and 12 international rails and off-ramping using all USA domestic, and 27 international rails.
+
+## USA Domestic
+
+### On-Ramp
+
+| **Rail**     | **Currency** | **Settlement Time** |
+| :----------- | :----------- | :------------------ |
+| Same Day ACH | USD          | T+0                 |
+| Next Day ACH | USD          | T+1                 |
+| FedWire      | USD          | T+0                 |
+| RTP          | USD          | Real-time           |
+| FedNow       | USD          | Real-time           |
+
+### Off-Ramp
+
+| **Rail**     | **Currency** | **Settlement Time** |
+| :----------- | :----------- | :------------------ |
+| RTP          | USD          | Real-time           |
+| FedNow       | USD          | Real-time           |
+| Same Day ACH | USD          | T+0                 |
+
+<Info>
+  Same Day ACH is a fallback rail used when End-User’s bank is not part of FedNow or RTP networks.
+</Info>
