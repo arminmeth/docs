@@ -7,189 +7,80 @@ title: "Flow of Funds"
 - **Developer** - The company or entity using Superbank.
 - **User** - The end-user of a Developer.
 
-## On-Ramping
+## On/Off-Ramping
+
+### Introduction
 
 <Tip>
-  Why is there a difference between legacy and instant rails when on-ramping?
+  TL;DR
 
-  On-ramping is affected by two liquidity gaps:
-
-  - Real-time transfers: Instant rails like RTP require pre-funding;
-  - Real-time settlement: Real-time on-chain settlement requires access to USDC reserves.
-
-  Superbank provides access to both pre-funded instant rails and USDC liquidity reserves:
-
-  - If User cannot use instant rails, Superbank enables real-time settlement of legacy rails.
-  - If User can use RTP, Superbank provides the necessary pre-funding for instant transfers, as well as USDC liquidity for real-time on-chain settlement.
-  - If User can use FedNow, Superbank provides the necessary USDC liquidity for real-time on-chain settlement.
+  1. Superbank pre-positions liquidity with the developer to support real-time settlement.
+  2. User transactions run in a continuous loop where each request is settled instantly using the pre-positioned liquidity while fiat transfers complete asynchronously.
+  3. On a scheduled interval (e.g. daily, weekly, monthly), utilized liquidity is netted, returned, and fees are settled.
 </Tip>
 
-### On-Ramping with Legacy Rails
+The on- and off-ramping flow **enables real-time settlement by decoupling user payment finality from blockchain settlement.**
+
+Superbank temporarily provisions liquidity to the developer, allowing the developer to settle user balances in real time for both on- and off-ramp transactions while underlying fiat transfers complete asynchronously. 
+
+Once user transactions settle, the pre-positioned liquidity is reconciled and returned to Superbank along with applicable fees.
+
+### Step 1: Capital Provisioning
+
+In this phase, Superbank transfers a predefined amount of instant settlement capital to the developer’s on-chain wallet or bank account. This capital serves as a temporary liquidity buffer that the developer can draw on to settle user on-ramp transactions immediately:
+
+- The provisioned capital is segregated and used exclusively for instant on/off-ramping, ensuring clear accounting and reconciliation;
+- No user transactions occur during this phase; capital is positioned in advance to guarantee availability when requests arrive.
 
 ```mermaid
 sequenceDiagram
 	autonumber
-	actor U as User
-	participant C as Developer
-	participant S as Superbank
-	U-->>C: Incoming Fiat Transfer<br>(ACH, FedWire)
-	C-->>S: Incoming Fiat Transfer Notification
-	S->>C:Instant Settlement Capital<br>(USDC/T)
-	C->>U: Instant Settlement<br>(USDC/T)
-	U->>C: Fiat Transfer<br>(ACH, FedWire)
-	C->>S: Fiat Transfer + Fees
+	participant dwb as Developer's Wallet<br>or Bank Account
+	participant so as Superbank's<br>Omnibus
+	so->>dwb: Instant Settlement Capital
 ```
-<Steps>
-  <Step> 
-    User initiates Fiat Transfer to Developer via legacy rails (ACH, FedWire). 
 
-      - `source`: User’s bank account
-      - `destination`: Developer’s bank account
+### Step 2a: Real-Time On-Ramping
 
-    <Badge icon="clock" color="blue">T0</Badge>
-  </Step>
-  <Step>
-    Developer forwards Incoming Fiat Transfer Notification to Superbank.
+When a user initiates an on-ramping request, the following loop applies:
 
-      - `source`: Developer’s bank account
-      - `destination`: Superbank’s API
-  </Step>
-  <Step>
-    Superbank provides Instant Settlement Capital to Developer in USDC/T.
+1. The user requests conversion from fiat to on-chain assets;
+2. The developer’s system authorizes instant settlement to the user’s wallet using pre-positioned liquidity;
+3. The corresponding fiat transfer is initiated and observed asynchronously;
+4. Liquidity is temporarily utilized during execution and restored during reconciliation.
 
-      - `source`: Superbank’s pre-funded wallet
-      - `destination`: Developer’s wallet
-  </Step>
-  <Step>
-    Developer forwards Instant Settlement Capital to User.
+This execution model provides real-time settlement while underlying transfers complete asynchronously.
 
-      - `source`: Developer’s wallet
-      - `destination`: User’s wallet
+<Frame hint="Click the image to zoom in" caption="On-Ramping Flow of Funds">
+  <img src="/images/flow_on_ramping.svg" alt="On-Ramping Flow of Funds" />
+</Frame>
 
-    <Badge icon="clock" color="blue">T0</Badge> &nbsp;&nbsp; <Badge icon="circle-check" color="green">INSTANT SETTLEMENT</Badge>
-  </Step>
-  <Step>
-    Fiat Transfer from User to Developer is completed after T + X.
+### Step 2b: Real-Time Off-Ramping
 
-      - `source`: User’s bank account
-      - `destination`: Developer’s bank account
+When a user initiates an off-ramping request, the following loop applies:
 
-    <Badge icon="clock" color="blue">T0 + X</Badge>
-  </Step>
-  <Step>
-    Developer forwards received Fiat Transfer funds + Fees to Superbank. 
-      - `source`: Developer’s bank account
-      - `destination`: Superbank’s bank account
+1. The user requests conversion from on-chain assets to fiat;
+2. The developer’s system authorizes instant settlement to the user’s bank account using pre-positioned liquidity;
+3. The corresponding on-chain transfer is initiated and observed asynchronously;
+4. Liquidity is temporarily utilized during execution and restored during reconciliation.
 
-    <Badge icon="clock" color="blue">T0 + X</Badge>
-  </Step>
-</Steps>
+This execution model provides real-time settlement while underlying transfers complete asynchronously.
 
+<Frame hint="Click the image to zoom in" caption="Off-Ramping Flow of Funds">
+  <img src="/images/flow_off_ramping.svg" alt="Off-Ramping Flow of Funds" />
+</Frame>
 
-### On-Ramping with Instant Rails
+### Step 3: Capital Reconciliation
+
+After on- and off-ramp transactions have reached payment finality, the developer returns the utilized instant settlement capital to Superbank. Alongside the principal, the developer pays agreed-upon fees for the use of the pre-positioned liquidity:
+
+- Reconciliation restores Superbank’s liquidity position and ensures accurate accounting across all parties;
+- Settlement occurs on a defined interval (e.g. daily, weekly, monthly), allowing multiple transactions to be netted and settled together.
 
 ```mermaid
 sequenceDiagram
 	autonumber
-	actor U as User
-	participant C as Developer
-	participant S as Superbank
-	U->>C: Instant Fiat Transfer<br>(RTP, FedNow)
-	C->>S: Fiat Transfer + Fees
-	S->>C: Instant Settlement Capital<br>(USDC)
-	C->>U: Instant Settlement<br>(USDC)
+	participant dwb as Developer's Wallet<br>or Bank Account
+	participant so as Superbank's<br>Omnibus
+	dwb->>so: Instant Settlement Capital + Fees
 ```
-
-<Steps>
-  <Step> 
-    User completes Fiat Transfer to Developer via instant rails (RTP, FedNow).
-
-      - `source`: User’s bank account
-      - `destination`: Developer’s bank account
-    
-    <Badge icon="clock" color="blue">T0</Badge>
-  </Step>
-  <Step> 
-    Developer forwards received Fiat Transfer funds + Fees to Superbank.
-
-      - `source`: Developer’s bank account
-      - `destination`: Superbank’s bank account
-  </Step>
-  <Step> 
-    Superbank provides Instant Settlement Capital to Developer in USDC/T.
-    
-      - `source`: Superbank’s pre-funded wallet
-      - `destination`: Developer’s wallet
-  </Step>
-  <Step>
-    Developer forwards Instant Settlement Capital to User. 
-
-      - `source`: Developer’s wallet
-      - `destination`: User’s wallet
-
-    <Badge icon="clock" color="blue">T0</Badge> &nbsp;&nbsp; <Badge icon="circle-check" color="green">INSTANT SETTLEMENT</Badge>
-  </Step>
-</Steps>
-
-## Off-Ramping
-
-<Tip>
-  Why is there no difference between legacy and real-time rails when off-ramping?
-
-  Off-ramping is affected by two liquidity gaps:
-
-  - Real-time settlement: Instant off-chain settlement requires access to USD reserves.
-  - Real-time transfers: Instant rails like RTP require pre-funding;
-
-  Superbank provides access to both pre-funded instant rails and USD liquidity reserves, eliminating the need for legacy rails.
-
-  - If Developer cannot use instant rails, Superbank provides both RTP and FedNow.
-  - If Developer can use RTP, Superbank provides the necessary pre-funding for instant transfers, as well as USD liquidity for instant off-chain settlement.
-  - If Developer can use FedNow, Superbank provides the necessary USD liquidity for off-chain settlement.
-  - If User cannot receive instant transfers, Superbank provides Same Day ACH fallback.
-</Tip>
-
-### Off-Ramping with Instant and Legacy Rails
-
-```mermaid
-sequenceDiagram
-	autonumber
-	actor U as User
-	participant C as Developer
-	participant S as Superbank
-	U->>C: Crypto Transfer
-	C->>S: Crypto Transfer + Fees
-	S->>C: Instant Settlement Capital<br>(USD)
-	C->>U: Instant Settlement<br>(USD)
-```
-
-<Steps>
-  <Step> 
-    User completes Crypto Transfer to Developer.
-
-      - `source`: User’s wallet
-      - `destination`: Developer’s wallet
-
-    <Badge icon="clock" color="blue">T0</Badge>
-  </Step>
-  <Step> 
-    Developer forwards received Crypto Transfer funds + Fees to Superbank.
-
-      - `source`: Developer’s wallet
-      - `destination`: Superbank’s wallet
-  </Step>
-  <Step> 
-    Superbank provides Instant Settlement Capital to Developer in USD.
-
-      - `source`: Superbank’s pre-funded bank account
-      - `destination`: Developer’s bank account
-  </Step>
-  <Step>
-    Developer forwards Instant Settlement Capital to User.
-
-      - `source`: Developer’s bank account
-      - `destination`: User’s bank account
-
-    <Badge icon="clock" color="blue">T0</Badge> &nbsp;&nbsp; <Badge icon="circle-check" color="green">INSTANT SETTLEMENT</Badge>
-  </Step>
-</Steps>
