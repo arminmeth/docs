@@ -53,9 +53,51 @@ When a user initiates an on-ramping request, the following loop applies:
 
 This execution model provides real-time settlement while underlying transfers complete asynchronously.
 
-<Frame hint="Click the image to zoom in" caption="On-Ramping Flow of Funds">
-  <img src="/images/flow_on_ramping.svg" alt="On-Ramping Flow of Funds" />
-</Frame>
+```mermaid
+sequenceDiagram
+	autonumber
+	actor u as User
+	participant c as Developer
+	participant s as Superbank
+	u-->>c: On-Ramping Transfer
+	c-->>s: Incoming Transfer Notification
+	s-->>c: Instant Settlement Approval
+	c->>u: Instant Settlement
+	u->>c: On-Ramping Transfer
+```
+
+<Steps>
+	<Step> 
+		User initiates on-ramping transfer to Developer. 
+
+		- `source`: User’s bank account
+		- `destination`: Developer’s wallet
+
+		<Badge icon="clock" color="blue">T0</Badge>
+	</Step>
+	<Step>
+		Developer sends incoming transfer notification to Superbank.
+	</Step>
+	<Step>
+		Superbank approves instant settlement request.
+	</Step>
+	<Step>
+		Developer settles on-chain transfer.
+
+		- `source`: Developer’s wallet
+		- `destination`: User’s wallet
+
+		<Badge icon="clock" color="blue">T0</Badge> &nbsp;&nbsp; <Badge icon="circle-check" color="green">INSTANT SETTLEMENT</Badge>
+	</Step>
+	<Step>
+		On-ramping transfer is completed after `T0+X`.
+
+		- `source`: User’s bank account
+		- `destination`: Developer’s wallet
+
+		<Badge icon="clock" color="blue">T0 + X</Badge>
+	</Step>
+</Steps>
 
 #### Off-Ramping
 
@@ -68,9 +110,50 @@ When a user initiates an off-ramping request, the following loop applies:
 
 This execution model provides real-time settlement while underlying transfers complete asynchronously.
 
-<Frame hint="Click the image to zoom in" caption="Off-Ramping Flow of Funds">
-  <img src="/images/flow_off_ramping.svg" alt="Off-Ramping Flow of Funds" />
-</Frame>
+```mermaid
+sequenceDiagram
+	autonumber
+	actor u as User
+	participant c as Developer
+	participant s as Superbank
+	u-->>c: Off-Ramping Transfer
+	c-->>s: Incoming Transfer Notification
+	s-->>c: Instant Settlement Approval
+	c->>u: Instant Settlement
+	u->>c: Off-Ramping Transfer
+```
+<Steps>
+	<Step> 
+		User initiates off-ramping transfer to Developer. 
+
+		- `source`: User’s wallet
+		- `destination`: Developer’s bank account
+
+		<Badge icon="clock" color="blue">T0</Badge>
+	</Step>
+	<Step>
+		Developer sends incoming transfer notification to Superbank.
+	</Step>
+	<Step>
+		Superbank approves instant settlement request.
+	</Step>
+	<Step>
+		Developer settles off-chain transfer.
+
+		- `source`: Developer’s bank account
+		- `destination`: User’s bank account
+
+		<Badge icon="clock" color="blue">T0</Badge> &nbsp;&nbsp; <Badge icon="circle-check" color="green">INSTANT SETTLEMENT</Badge>
+	</Step>
+	<Step>
+		Off-ramping transfer is completed after `T0+X`.
+
+		- `source`: User’s wallet
+		- `destination`: Developer’s bank account
+
+		<Badge icon="clock" color="blue">T0 + X</Badge>
+	</Step>
+</Steps>
 
 ### Step 3: Capital Reconciliation
 
