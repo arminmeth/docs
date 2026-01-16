@@ -27,7 +27,7 @@ Once user transactions settle, the pre-positioned liquidity is reconciled and re
 
 ### Step 1: Capital Provisioning
 
-In this phase, Superbank transfers a predefined amount of instant settlement capital to the developer’s on-chain wallet or bank account. This capital serves as a temporary liquidity buffer that the developer can draw on to settle user on-ramp transactions immediately:
+In this phase, Superbank transfers a predefined amount of instant settlement capital to the developer’s on-chain wallet or bank account. This capital serves as a temporary liquidity buffer that the developer can draw on to settle user on/off-ramp transactions immediately:
 
 - The provisioned capital is segregated and used exclusively for instant on/off-ramping, ensuring clear accounting and reconciliation;
 - No user transactions occur during this phase; capital is positioned in advance to guarantee availability when requests arrive.
@@ -59,14 +59,58 @@ This execution model provides real-time settlement while underlying transfers co
 		alt="On-Ramping Flow" />
 </Frame>
 
+<Steps>
+	<Step>
+		End-user sends on-ramping request to Developer.
+	</Step>
+	<Step>
+		Developer request instant settlement from Superbank's API.
+	</Step>
+	<Step>
+		Superbank confirms instant settlement, reserves funds and returns on-ramping instructions:
+		- Deposit instructions for on-ramping using Superbank's infrastructure;
+		- Pre-Funded Wallet address for on-ramping with your (Developer's) infrastructure.
+	</Step>
+	<Step>
+		Developer triggers on-ramping.
+		
+		`source`: End-User's Bank Account
+		
+		`destination`: Pre-Funded Wallet
+	</Step>
+	<Step>
+		Transaction is initated.
+	</Step>
+	<Step>
+		Developer notifies Superbank that there is an incoming transaction.
+	</Step>
+	<Step>
+		Superbank initiates instant settlement of incoming transaction.
+		
+		`source`: Pre-Funded Wallet
+		
+		`destination`: End-User's Wallet
+	</Step>
+	<Step>
+		Instant settlement is completed.
+	</Step>
+	<Step>
+		After T+X, on-ramping transaction is completed.
+
+		`source`: End-User's Bank Account
+		
+		`destination`: Pre-Funded Wallet
+	</Step>
+</Steps>
+
 #### Off-Ramping
 
 When a user initiates an off-ramping request, the following loop applies:
 
 1. The user requests conversion from on-chain assets to fiat;
 2. The developer’s system authorizes instant settlement to the user’s bank account using pre-positioned liquidity;
-3. The corresponding on-chain transfer is initiated and observed asynchronously;
-4. Liquidity is temporarily utilized during execution and restored during reconciliation.
+3. The corresponding on-chain transfer is initiated and completed;
+4. Liquidity is utilized to instantly settle off-ramping via real-time rails.
 
 This execution model provides real-time settlement while underlying transfers complete asynchronously.
 
@@ -75,6 +119,43 @@ This execution model provides real-time settlement while underlying transfers co
 		src="/images/flow_off_ramping.svg"
 		alt="On-Ramping Flow" />
 </Frame>
+
+<Steps>
+	<Step>
+		End-user sends off-ramping request to Developer.
+	</Step>
+	<Step>
+		Developer request instant settlement from Superbank's API.
+	</Step>
+	<Step>
+		Superbank confirms instant settlement, reserves funds and returns on-chain transfer instructions:
+		- Deposit instructions for on-chain transfer using Superbank's infrastructure;
+		- Pre-Funded Wallet address for on-chain transfer with your (Developer's) infrastructure.
+	</Step>
+	<Step>
+		Developer triggers on-chain transfer.
+		
+		`source`: End-User's Wallet
+		
+		`destination`: Pre-Funded Wallet
+	</Step>
+	<Step>
+		Transaction is completed.
+	</Step>
+	<Step>
+		Superbank is notified that tranasction was completed.
+	</Step>
+	<Step>
+		Superbank initiates instant settlement in fiat.
+		
+		`source`: Pre-Funded Wallet
+		
+		`destination`: End-User's Bank Account
+	</Step>
+	<Step>
+		Instant settlement in fiat is completed.
+	</Step>
+</Steps>
 
 ### Step 3: Capital Reconciliation
 
